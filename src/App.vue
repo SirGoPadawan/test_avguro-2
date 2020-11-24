@@ -1,28 +1,55 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <section class="container">
+    <div class="wrapper">
+      <div>
+        <label class="input-label" :class="activeClass">
+          <input type="file" class="input-file" @change="handlerChange" />
+          {{ label }}
+        </label>
+        <p class="input-sublabel">{{ sublabel }}</p>
+      </div>
+      <p class="default-text" :class="statusText">{{ check }}</p>
+    </div>
+  </section>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  data() {
+    return {
+      activeClass: "default",
+      label: "Загрузить скан страницы с фотографией",
+      sublabel: "Размер файла не более 5мб",
+      check: "",
+      statusText: "",
+    };
+  },
+  methods: {
+    handlerChange(event) {
+      this.activeClass = "load";
+      const e = event.target.files[0];
+      const name = e.name;
+      const size = "(" + (e.size / 1024).toFixed(2) + " Кб)";
+      setTimeout(() => {
+        this.activeClass = "checked";
+        this.sublabel = name + " " + size;
+        this.statusText = "";
+        this.check = "Проверка...";
+        setTimeout(() => {
+          if (Math.random() <= 0.5) {
+            this.activeClass = "accept";
+            this.statusText = "accept-text";
+            this.label = "Страница с пропиской";
+            this.check = "Проверенно";
+          } else {
+            this.activeClass = "denied";
+            this.statusText = "denied-text";
+            this.label = "Загрузить скан страницы с фотографией";
+            this.check = "Отклоненно";
+            this.sublabel = "Размер файла не более 5мб";
+          }
+        }, 2000);
+      }, 2000);
+    },
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

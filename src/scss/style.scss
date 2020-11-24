@@ -1,0 +1,134 @@
+@import "../fonts/fonts.css";
+
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: "PTSans";
+}
+
+p,
+h1,
+h2,
+h3 {
+  padding: 0;
+  margin: 0;
+}
+@mixin svg {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 38px;
+    text-align: center;
+    background-color: #ffffff;
+    border-radius: 4px;
+    left: -70px;
+    top: 14px;
+    padding: 7px;
+    padding-top: 10px;
+  }
+}
+body {
+  overflow-x: hidden;
+  margin: 0;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+.wrapper {
+  width: 90%;
+  max-width: 1092px;
+  min-width: 819px;
+  margin: 0 auto;
+  display: grid;
+  display: -ms-grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 12px;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    grid-column: 4 / span 4;
+    -ms-grid-column: 4;
+    -ms-grid-column-span: 4;
+    -ms-grid-row: 1;
+  }
+}
+.input {
+  &-file {
+    display: none;
+  }
+  &-label {
+    cursor: pointer;
+    height: 45px;
+    padding: 15px 0;
+    font-size: 16px;
+    font-weight: bold;
+    &:hover {
+      color: #3c3c3c;
+    }
+  }
+  &-sublabel {
+    color: #a7a7a7;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: default;
+  }
+}
+.default {
+  text-decoration: underline #000000;
+  &-text {
+    color: #a7a7a7;
+    font-size: 14px;
+    font-weight: bold;
+    -ms-grid-row: 1;
+    grid-column: 8 / span 2;
+    -ms-grid-column: 8;
+    -ms-grid-column-span: 2;
+    padding-top: 15px;
+  }
+  @include svg();
+  &::before {
+    content: url("../static/upload.svg");
+  }
+}
+.load {
+  @include svg();
+  &::before {
+    content: url("../static/rolling.svg");
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+.checked {
+  @include svg();
+  &::before {
+    content: url("../static/wait.svg");
+  }
+}
+.accept {
+  &-text {
+    color: #7ca64c;
+  }
+  @include svg();
+  &::before {
+    content: url("../static/ok.svg");
+  }
+}
+.denied {
+  &-text {
+    color: #d52011;
+  }
+  @include svg();
+  &::before {
+    content: url("../static/upload.svg");
+  }
+}
+@media screen and (max-width: 859px) {
+  .container {
+    min-width: auto;
+    width: calc(100% - 40px);
+  }
+}
